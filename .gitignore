@@ -1,1 +1,12 @@
+<<<<<<< HEAD
 *.iml
+=======
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+>>>>>>> 067578c15e515b6b6f80d498a67f8e6139fc4137
