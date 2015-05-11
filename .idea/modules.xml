@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/nd4j-jcublas-example.iml" filepath="$PROJECT_DIR$/nd4j-jcublas-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nd4j-jcublas-sample.iml" filepath="$PROJECT_DIR$/nd4j-jcublas-sample.iml" />
     </modules>
   </component>
 </project>

@@ -24,7 +24,11 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="nd4j-jcublas-example" />
+        <module name="nd4j-jcublas-sample" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="nd4j-jcublas-sample" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
