@@ -1,6 +1,5 @@
 package org.nd4j;
 import static jcuda.driver.JCudaDriver.*;
-import java.io.*;
 import jcuda.*;
 import jcuda.driver.*;
 
