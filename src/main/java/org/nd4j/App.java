@@ -1,26 +1,44 @@
 package org.nd4j;
+import static jcuda.driver.JCudaDriver.*;
+import java.io.*;
+import jcuda.*;
+import jcuda.driver.*;
 
-import jcublas.JCublas2;
-import jcublas.cublasHandle;
-import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.factory.Nd4j;
+public class App
+{
+    public static void main(String args[])
+    {
+        JCudaDriver.setExceptionsEnabled(true);
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+        cuInit(0);
+        CUdevice device = new CUdevice();
+        cuDeviceGet(device, 0);
+        CUcontext context = new CUcontext();
+        cuCtxCreate(context, 0, device);
 
-/**
- * Hello world!
- *
- */
-public class App {
-    public static void main( String[] args ) {
-        JCublas2.setExceptionsEnabled(true);
-        INDArray ret = Nd4j.create(5);
-       //This will break if you run it with jcublas2.
-       // ret.mmul(ret.transpose());
+        CUlinkState linkState = new CUlinkState();
+        JITOptions jitOptions = new JITOptions();
+        cuLinkCreate(jitOptions, linkState);
 
-        cublasHandle handle = new cublasHandle();
-        JCublas2.cublasCreate(handle);
-        JCublas2.cublasDestroy(handle);
+        String ptxFileName2 = "test_function.ptx";
+        String ptxFileName1 = "test_kernel.ptx";
+
+        cuLinkAddFile(linkState, CUjitInputType.CU_JIT_INPUT_PTX, ptxFileName2, jitOptions);
+        cuLinkAddFile(linkState, CUjitInputType.CU_JIT_INPUT_PTX, ptxFileName1, jitOptions);
+
+        long sz[] = new long[1];
+        Pointer image = new Pointer();
+        cuLinkComplete(linkState, image, sz);
+        System.out.println("Pointer: " + image);
+        System.out.println("CUBIN size: " + sz[0]);
+
+        CUmodule module = new CUmodule();
+        cuModuleLoadDataEx(module, image, 0, new int[0], Pointer.to(new int[0]));
+        cuLinkDestroy(linkState);
+
+        CUfunction functionKernel = new CUfunction();
+        String kernelname = "_Z6kernelPfS_S_S_";
+        cuModuleGetFunction(functionKernel, module, kernelname);
+        System.out.println("Function: " + functionKernel);
     }
 }

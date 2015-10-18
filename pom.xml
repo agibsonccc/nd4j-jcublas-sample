@@ -16,8 +16,8 @@
   <dependencies>
       <dependency>
           <groupId>org.nd4j</groupId>
-          <artifactId>nd4j-jcublas-7.0</artifactId>
-          <version>0.0.3.5.5.4-SNAPSHOT</version>
+          <artifactId>nd4j-jcublas-7.5</artifactId>
+          <version>0.4-rc3.6-SNAPSHOT</version>
       </dependency>
   </dependencies>
 </project>
